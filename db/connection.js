@@ -7,7 +7,7 @@ const db = mysql.createConnection(
         host: "localhost",
         user: "root",
         password: process.env.DB_PW,
-        database: "employee-tracker",
+        database: "employee_db",
     },
 );
 
