@@ -16,3 +16,14 @@ VALUES
     ('Salesperson', 80000.00, 4),
     ('Sales Manger', 100000.00, 4);
     
+
+INSERT INTO employee(first_name, last_name, role_id, manager_id)
+VALUES
+    ('John', 'Doe', 2, NULL),
+    ('Mike', 'Jones', 1, 1),
+    ('Jane', 'Thomas', 4, NULL),
+    ('Tyler', 'Smith', 3, 3),
+    ('Tom', 'Green', 6, NULL),
+    ('Judy', 'Brown', 5, 5),
+    ('Sarah', 'White', 8, NULL),
+    ('Kevin', 'Thompson', 7, 7);
