@@ -31,9 +31,10 @@ const viewRoles= () => {
 };
 
 const viewEmployees = () => {
-    const sql = `SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, employee.manager_id FROM employee
+    const sql = `SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, employee.manager_id, CONCAT(manager.first_name, ' ', manager.last_name, ' ', manager.id) AS manager FROM employee
                 LEFT JOIN role ON role_id = role.id
-                LEFT JOIN department ON department_id = department.id`
+                LEFT JOIN department ON department_id = department.id
+                LEFT JOIN employee manager on manager.id = employee.manager_id;`
     db.query(sql, (err, rows) => {
         if(err){
             console.log(err)
@@ -49,6 +50,6 @@ db.connect(err => {
     if(err) throw err;
     console.log('Database connected');
     //viewDepartment();
-    viewRoles();
+    //viewRoles();
     viewEmployees();
 })
