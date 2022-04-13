@@ -6,8 +6,20 @@ require('dotenv').config();
 
 const db = require('./db/connection');
 
-const viewDepartment= () => {
+const viewDepartment = () => {
     const sql = `SELECT * FROM department`;
+    db.query(sql, (err, rows) => {
+        if(err){
+            console.log(err)
+            return;
+        } 
+        console.table(rows);
+    });
+
+};
+
+const viewRoles= () => {
+    const sql = `SELECT * FROM role`;
     db.query(sql, (err, rows) => {
         if(err){
             console.log(err)
@@ -23,4 +35,5 @@ db.connect(err => {
     if(err) throw err;
     console.log('Database connected');
     viewDepartment();
+    viewRoles();
 })
