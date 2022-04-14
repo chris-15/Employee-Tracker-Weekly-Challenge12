@@ -1,55 +1,64 @@
 // packages needed for app
-const inquirer = require('inquirer');
+const inquirer = require("inquirer");
 const mysql = require("mysql2");
-const cTable = require('console.table');
-require('dotenv').config();
+const cTable = require("console.table");
+require("dotenv").config();
 
-const db = require('./db/connection');
+const db = require("./db/connection");
 
-const viewDepartment = () => {
-    const sql = `SELECT * FROM department`;
-    db.query(sql, (err, rows) => {
-        if(err){
-            console.log(err)
-            return;
-        } 
-        console.table(rows);
-    });
+const {viewDepartment, viewRoles, viewEmployees} = require("./utils/view");
+
+const startPrompt = () => {
+  console.log(`
+    =================
+    Employee Tracker
+    =================
+    `);
+
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "trackerStart",
+        message: "What would you like to do?",
+        choices: [
+          "View all departments",
+          "View all roles",
+          "View all employees",
+          "Add a department",
+          "Add a role",
+          "Add an employee",
+          "Update an employee role",
+          "Exit",
+        ],
+      },
+    ])
+    .then((answers) => {
+      //console.log(answers)
+
+      switch (answers.trackerStart) {
+        case "View all departments":
+          viewDepartment();
+          break;
+        case "View all roles":
+          viewRoles();
+          break;
+        case "View all employees":
+          viewEmployees();
+          break;
+      }
+    })
 };
-
-const viewRoles= () => {
-    const sql = `SELECT role.id, role.title, department.name AS department, role.salary FROM role 
-                    LEFT JOIN department ON department_id = department.id`;
-    db.query(sql, (err, rows) => {
-        if(err){
-            console.log(err)
-            return;
-        } 
-        console.table(rows);
-    });
-
-};
-
-const viewEmployees = () => {
-    const sql = `SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, employee.manager_id, CONCAT(manager.first_name, ' ', manager.last_name, ' ', manager.id) AS manager FROM employee
-                LEFT JOIN role ON role_id = role.id
-                LEFT JOIN department ON department_id = department.id
-                LEFT JOIN employee manager on manager.id = employee.manager_id;`
-    db.query(sql, (err, rows) => {
-        if(err){
-            console.log(err)
-            return;
-        } 
-        console.table(rows);
-    });
-};
-
 
 // connects to mysql database
-db.connect(err => {
-    if(err) throw err;
-    console.log('Database connected');
-    //viewDepartment();
-    //viewRoles();
-    viewEmployees();
-})
+db.connect((err) => {
+  if (err) throw err;
+  console.log("Database connected");
+  //viewDepartment();
+  //viewRoles();
+  //viewEmployees();
+  startPrompt();
+});
+
+
+exports.startfunc = startPrompt;
