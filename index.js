@@ -6,7 +6,9 @@ require("dotenv").config();
 
 const db = require("./db/connection");
 
-const {viewDepartment, viewRoles, viewEmployees} = require("./utils/view");
+const { viewDepartment, viewRoles, viewEmployees } = require("./utils/view");
+
+const addDepartment = require('./utils/add');
 
 const startPrompt = () => {
   console.log(`
@@ -46,8 +48,11 @@ const startPrompt = () => {
         case "View all employees":
           viewEmployees();
           break;
+        case "Add a department":
+          addDepartment();
+          break;
       }
-    })
+    });
 };
 
 // connects to mysql database
@@ -60,5 +65,5 @@ db.connect((err) => {
   startPrompt();
 });
 
-
+// exporting startprompt function inorder to call it back in the view functions in view.js
 exports.startfunc = startPrompt;
