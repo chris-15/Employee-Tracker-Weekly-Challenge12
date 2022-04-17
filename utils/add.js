@@ -79,17 +79,6 @@ const addRole = () => {
           }
         },
       },
-
-
-      // this needs to be added in nested inquirer after .then
-      /* {
-            type: "list",
-            name: "newRoleDepartment",
-            message: "What department does this  (Required)",
-            choices: []
-            
-    
-          } */
     ])
     .then((roleAnswers) => {
       // roleAnswers.newRole  roleAnswers.roleSalary
@@ -101,35 +90,51 @@ const addRole = () => {
           return;
         }
         //console.log(rows)
+        // using map to add a name and value to choices array in the inquirer list prompt
+        // the name will display but the value is what is returned in the answer of the prompt
+        deptChoices = rows.map(({ name, id }) => {
+          return { name: name, value: id };
+        });
+        //console.log(deptChoices);
         inquirer
           .prompt([
             {
               type: "list",
               name: "newRoleDepartment",
-              message: "What department does this  (Required)",
-              choices: rows
-            }
+              message: "What department does this belong to?",
+              choices: deptChoices,
+            },
           ])
           .then((newroleDept) => {
-            console.log(newroleDept)
-          })
+            //console.log(newroleDept)
+
+            // defining new array that holds all the info needed for the new role
+            roleInfoArr = [
+              roleAnswers.newRole,
+              roleAnswers.roleSalary,
+              newroleDept.newRoleDepartment,
+            ];
+            //console.log(roleInfoArr)
+            sqlRoleInfo = `INSERT INTO role (title, salary, department_id)
+                           VALUES(?, ?, ?)`;
+
+            db.query(sqlRoleInfo, roleInfoArr, (err, result) => {
+              if (err) {
+                console.log(err);
+                return;
+              }
+              viewRoles();
+            });
+          });
       });
-       
-      
-      
-
-
     });
 };
 
 const addEmployee = () => {
   console.log("** Adding a new employee! **");
   // first name, last name, role, and manager
-  inquirer
-    .prompt([
-
-    ])
-}
+  inquirer.prompt([]);
+};
 
 module.exports = {
   addDepartment,
