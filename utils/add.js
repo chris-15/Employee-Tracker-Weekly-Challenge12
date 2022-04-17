@@ -94,7 +94,7 @@ const addRole = () => {
     .then((roleAnswers) => {
       // roleAnswers.newRole  roleAnswers.roleSalary
       //console.log(roleAnswers);
-      const sqlDept = `SELECT department.id FROM department`;
+      const sqlDept = `SELECT id, name FROM department`;
       db.query(sqlDept, (err, rows) => {
         if (err) {
           console.log(err);
@@ -110,6 +110,9 @@ const addRole = () => {
               choices: rows
             }
           ])
+          .then((newroleDept) => {
+            console.log(newroleDept)
+          })
       });
        
       
