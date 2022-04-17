@@ -93,10 +93,25 @@ const addRole = () => {
     ])
     .then((roleAnswers) => {
       // roleAnswers.newRole  roleAnswers.roleSalary
-      console.log(roleAnswers);
-      
-      // add inquirer list 
-
+      //console.log(roleAnswers);
+      const sqlDept = `SELECT department.id FROM department`;
+      db.query(sqlDept, (err, rows) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        //console.log(rows)
+        inquirer
+          .prompt([
+            {
+              type: "list",
+              name: "newRoleDepartment",
+              message: "What department does this  (Required)",
+              choices: rows
+            }
+          ])
+      });
+       
       
       
 
