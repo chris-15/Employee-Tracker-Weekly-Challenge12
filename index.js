@@ -8,7 +8,7 @@ const db = require("./db/connection");
 
 const { viewDepartment, viewRoles, viewEmployees } = require("./utils/view");
 
-const addDepartment = require('./utils/add');
+const { addDepartment, addRole} = require('./utils/add');
 
 const startPrompt = () => {
   console.log(`
@@ -50,6 +50,9 @@ const startPrompt = () => {
           break;
         case "Add a department":
           addDepartment();
+          break;
+        case "Add a role":
+          addRole();
           break;
       }
     });
