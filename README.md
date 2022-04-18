@@ -48,7 +48,7 @@ A video of the application in use:
 
 ## Installation
 
-The user must install both Node.js, inquirer, mysql2, and console.table packages before use.
+The user must install Node.js, inquirer, mysql2, and console.table packages before use.
 
 
 ## Usage 
