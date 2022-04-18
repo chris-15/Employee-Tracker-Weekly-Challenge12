@@ -9,6 +9,7 @@ const db = require("./db/connection");
 const { viewDepartment, viewRoles, viewEmployees } = require("./utils/view");
 
 const { addDepartment, addRole, addEmployee } = require('./utils/add');
+const updateEmployee = require('./utils/update');
 
 const startPrompt = () => {
   console.log(`
@@ -56,6 +57,9 @@ const startPrompt = () => {
           break;
         case "Add an employee":
           addEmployee();
+          break;
+        case "Update an employee role":
+          updateEmployee();
           break;
       }
     });

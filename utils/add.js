@@ -116,7 +116,7 @@ const addRole = () => {
             //console.log(roleInfoArr)
 
             // declaring a variable for the sql insert query
-            sqlRoleInfo = `INSERT INTO role (title, salary, department_id)
+            const sqlRoleInfo = `INSERT INTO role (title, salary, department_id)
                            VALUES(?, ?, ?)`;
 
             // applying query to add the role info in to the role table
@@ -230,7 +230,7 @@ const addEmployee = () => {
 
                   //console.log(employeeInfoArr);
                   // declaring a variable for the sql insert query
-                  sqlEmployeeInfo = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
+                  const sqlEmployeeInfo = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
                                     VALUES (?, ?, ?, ?)`;
 
                   // applying query to add the employee info in to the employee table
