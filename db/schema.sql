@@ -1,3 +1,5 @@
+-- schema used to created database, then instruct to use database, and then create tables in database
+-- deletes if already created, then creates new/fresh 
 DROP DATABASE IF EXISTS employee_db;
 CREATE DATABASE employee_db;
 

@@ -1,3 +1,5 @@
+-- adding values into tables
+
 INSERT INTO department (name)
 VALUES
     ('Engineering'),
