@@ -42,7 +42,7 @@ GIVEN a command-line application that accepts user input
 
 A video of the application in use: 
 
-[Demonstration Video]()
+[Demonstration Video](https://drive.google.com/file/d/158KPoB15UtFb96yTv01IVNqhnPJYdBhY/view?usp=sharing)
 
 <br>
 
