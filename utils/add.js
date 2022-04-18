@@ -114,9 +114,12 @@ const addRole = () => {
               newroleDept.newRoleDepartment,
             ];
             //console.log(roleInfoArr)
+
+            // declaring a variable for the sql insert query
             sqlRoleInfo = `INSERT INTO role (title, salary, department_id)
                            VALUES(?, ?, ?)`;
 
+            // applying query to add the role info in to the role table
             db.query(sqlRoleInfo, roleInfoArr, (err, result) => {
               if (err) {
                 console.log(err);
@@ -160,18 +163,93 @@ const addEmployee = () => {
           }
         },
       },
-      
     ])
     .then((employeeName) => {
       //console.log(employeeName);
       // employeeName.newFirstName, employeeName.newLastName
-      
-      
-    })
+      const sqlRoleSelect = `SELECT id, title FROM role`;
+      db.query(sqlRoleSelect, (err, rows) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+
+        //console.log(rows);
+        roleChoices = rows.map(({ id, title }) => {
+          return { name: title, value: id };
+        });
+
+        //console.log(roleChoices);
+        inquirer
+          .prompt([
+            {
+              type: "list",
+              name: "newEmployeeRole",
+              message: "What is the new employee's role?",
+              choices: roleChoices,
+            },
+          ])
+          .then((employeeRole) => {
+            //console.log(employeeRole.newEmployeeRole);
+
+            const sqlManager = `SELECT id, first_name, last_name FROM employee`;
+            db.query(sqlManager, (err, managerRows) => {
+              if (err) {
+                console.log(err);
+                return;
+              }
+              //console.log(managerRows);
+              //using map to add a name and vlaue to choices array for manager inquirer
+              // the name will display but the value is what is returned in the answer of the prompt
+              managerChoices = managerRows.map(
+                ({ id, first_name, last_name }) => {
+                  return { name: first_name + " " + last_name, value: id };
+                }
+              );
+
+              //console.log(managerChoices);
+              inquirer
+                .prompt([
+                  {
+                    type: "list",
+                    name: "newEmployeeManager",
+                    message: "Who is the new employee's manager?",
+                    choices: managerChoices,
+                  },
+                ])
+                .then((employeeManager) => {
+                  // first name last name role manager
+
+                  // defining new array that holds all the info needed for the new employee
+                  employeeInfoArr = [
+                    employeeName.newFirstName,
+                    employeeName.newLastName,
+                    employeeRole.newEmployeeRole,
+                    employeeManager.newEmployeeManager,
+                  ];
+
+                  //console.log(employeeInfoArr);
+                  // declaring a variable for the sql insert query
+                  sqlEmployeeInfo = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
+                                    VALUES (?, ?, ?, ?)`;
+
+                  // applying query to add the employee info in to the employee table
+                  db.query(sqlEmployeeInfo, employeeInfoArr, (err, result) => {
+                    if (err) {
+                      console.log(err);
+                      return;
+                    }
+                    viewEmployees();
+                  });
+                });
+            });
+          });
+      });
+    });
 };
 
 module.exports = {
   addDepartment,
   addRole,
-  addEmployee
+  addEmployee,
 };
