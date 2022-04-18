@@ -15,8 +15,9 @@ const viewDepartment = () => {
       console.log(err);
       return;
     }
+    //displays the table in the console
     console.table(rows);
-    //console.log(startPrompt.startPrompt)
+     // starts the initial prompt
     startPrompt.startfunc();
   });
 };
@@ -29,7 +30,9 @@ const viewRoles = () => {
       console.log(err);
       return;
     }
+    //displays the table in the console
     console.table(rows);
+    // starts the initial prompt
     startPrompt.startfunc();
   });
 };
@@ -51,7 +54,10 @@ const viewEmployees = () => {
       console.log(err);
       return;
     }
+    //displays the table in the console
     console.table(rows);
+    
+    // starts the initial prompt
     startPrompt.startfunc();
   });
 };

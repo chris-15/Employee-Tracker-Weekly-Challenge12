@@ -1,5 +1,4 @@
-//add a department, add a role, add an employee,
-
+// packages needed for app
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
 const cTable = require("console.table");
@@ -40,6 +39,7 @@ const addDepartment = () => {
           console.log(err);
           return;
         }
+        console.log("** Department has been added! **");
         viewDepartment();
       });
     });
@@ -68,7 +68,7 @@ const addRole = () => {
         type: "input",
         name: "roleSalary",
         message:
-          "What is the salary of the new role? (Required format: XXXXX.XX",
+          "What is the salary of the new role? (Required format: XXXXX.XX)",
         validate: (roleSalaryInput) => {
           if (!isNaN(roleSalaryInput)) {
             return true;
@@ -89,6 +89,7 @@ const addRole = () => {
           return;
         }
         //console.log(rows)
+
         // using map to add a name and value to choices array in the inquirer list prompt
         // the name will display but the value is what is returned in the answer of the prompt
         deptChoices = rows.map(({ name, id }) => {
@@ -125,6 +126,7 @@ const addRole = () => {
                 console.log(err);
                 return;
               }
+              console.log("** Role has been added! **");
               viewRoles();
             });
           });
@@ -175,6 +177,8 @@ const addEmployee = () => {
         }
 
         //console.log(rows);
+        //using map to add a name and vlaue to choices array for role inquirer
+        // the name will display but the value is what is returned in the answer of the prompt
         roleChoices = rows.map(({ id, title }) => {
           return { name: title, value: id };
         });
@@ -218,7 +222,7 @@ const addEmployee = () => {
                   },
                 ])
                 .then((employeeManager) => {
-                  // first name last name role manager
+                  // first name, last name, role, manager
 
                   // defining new array that holds all the info needed for the new employee
                   employeeInfoArr = [
@@ -239,6 +243,7 @@ const addEmployee = () => {
                       console.log(err);
                       return;
                     }
+                    console.log("** Employee has been added! **");
                     viewEmployees();
                   });
                 });
