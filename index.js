@@ -14,9 +14,7 @@ const updateEmployee = require('./utils/update');
 const startPrompt = () => {
   console.log(`
     =================
-
     Employee Tracker
-    
     =================
     `);
 
@@ -75,9 +73,6 @@ const startPrompt = () => {
 db.connect((err) => {
   if (err) throw err;
   console.log("Database connected");
-  //viewDepartment();
-  //viewRoles();
-  //viewEmployees();
   startPrompt();
 });
 

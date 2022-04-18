@@ -45,7 +45,7 @@ const viewEmployees = () => {
                         department.name AS department, 
                         role.salary, 
                         employee.manager_id, 
-                        CONCAT(manager.first_name, ' ', manager.last_name, ' ', manager.id) AS manager FROM employee
+                        CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee
                   LEFT JOIN role ON role_id = role.id
                   LEFT JOIN department ON department_id = department.id
                   LEFT JOIN employee manager on manager.id = employee.manager_id;`;
