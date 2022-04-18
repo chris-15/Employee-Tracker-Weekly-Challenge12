@@ -14,7 +14,9 @@ const updateEmployee = require('./utils/update');
 const startPrompt = () => {
   console.log(`
     =================
+
     Employee Tracker
+    
     =================
     `);
 
@@ -60,6 +62,10 @@ const startPrompt = () => {
           break;
         case "Update an employee role":
           updateEmployee();
+          break;
+        case "Exit":
+          // .end() ends the database connection and terminates the application
+          db.end()
           break;
       }
     });
