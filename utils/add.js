@@ -46,7 +46,6 @@ const addDepartment = () => {
 };
 
 // add name, salary, and department
-
 const addRole = () => {
   console.log("** Adding a new role! **");
 
@@ -133,10 +132,46 @@ const addRole = () => {
 const addEmployee = () => {
   console.log("** Adding a new employee! **");
   // first name, last name, role, and manager
-  inquirer.prompt([]);
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "newFirstName",
+        message: "What is the first name of the new employee? (Required)",
+        validate: (newFirstNameInput) => {
+          if (newFirstNameInput) {
+            return true;
+          } else {
+            console.log("Please enter the employee's first name!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "input",
+        name: "newLastName",
+        message: "What is the last name of the new employee? (Required)",
+        validate: (newLastNameInput) => {
+          if (newLastNameInput) {
+            return true;
+          } else {
+            console.log("Please enter the employee's last name!");
+            return false;
+          }
+        },
+      },
+      
+    ])
+    .then((employeeName) => {
+      //console.log(employeeName);
+      // employeeName.newFirstName, employeeName.newLastName
+      
+      
+    })
 };
 
 module.exports = {
   addDepartment,
   addRole,
+  addEmployee
 };
