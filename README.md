@@ -53,7 +53,7 @@ The user must install both Node.js, inquirer, mysql2, and console.table packages
 
 ## Usage 
 
-This application can be used to manage an employee database.
+This application can be used to manage an employee database. To start the application, type "node index.js" into the command line terminal.
 
 ## Tests
 
